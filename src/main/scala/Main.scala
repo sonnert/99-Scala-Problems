@@ -1,5 +1,6 @@
 object Main extends App {
   val l = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+  println("List used: "+l)
 
   // P1
   println("P1: "+l.last)
@@ -92,9 +93,9 @@ object Main extends App {
 
   // P16
   def drop[A](l: List[A]): List[A] = {
-    ???
+    l.sliding(3, 4).toList.flatten
   }
-  println("P: ")
+  println("P16 :"+drop(l))
 
   /*
   // P
