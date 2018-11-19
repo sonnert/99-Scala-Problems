@@ -1,9 +1,8 @@
+import scala.util.Random
+
 object Main extends App {
   val l = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
   println("List used: "+l)
-
-  // P1
-  println("P1: "+l.last)
 
   // P2
   def penultimate[A](l: List[A]): Any = {
@@ -20,20 +19,11 @@ object Main extends App {
   }
   println("P3 (n=5): "+nth(5, l))
 
-  // P4
-  println("P4: "+l.size)
-
-  // P5
-  println("P5: "+l.reverse)
-
   // P6
   def is_palindrome[A](l: List[A]): Boolean = {
     l.foldLeft(List[A]())((l, r) => r :: l).equals(l)
   }
   println("P6: "+is_palindrome(l))
-
-  // P7
-  println("P7 (l,l): "+List(l,l).flatten)
 
   // P8
   def compress(l: List[Any]): List[Any] = {
@@ -46,7 +36,6 @@ object Main extends App {
     }
     compress_inner(l, Nil)
   }
-  
   println("P8: "+compress(l))
   
   // P9
@@ -77,8 +66,6 @@ object Main extends App {
   }
   println("P12: "+decode(l))
 
-  // P13 skipped
-
   // P14
   def duplicate[A](l: List[A]): List[A] = {
     l.flatMap(x => List(x, x))
@@ -96,6 +83,38 @@ object Main extends App {
     l.sliding(3, 4).toList.flatten
   }
   println("P16 :"+drop(l))
+
+  // P19
+  def rotate[A](n: Int, l: List[A]): List[A] = {
+    l.drop(l.size-n) ::: l.dropRight(n)
+  }
+  println("P19: "+rotate(3, l))
+
+  // P20
+  def removeAt[A](n: Int, l: List[A]): List[A] = {
+    l.dropRight(l.size-n+1) ::: l.drop(n)
+  }
+  println("P20: "+removeAt(5, l))
+
+  // P21
+  def insertAt[A](newe: A, n: Int, l: List[A]): List[A] = {
+    l.take(n-1) ::: newe :: l.drop(n-1)
+  }
+  println("P21: "+insertAt('new, 3, l))
+
+  // P23
+  def randomSelect[A](n: Int, l: List[A]): List[A] = {
+    ???
+  }
+  println("P: ")
+
+  // P24
+  def lotto(n: Int, s: Int): List[Int] = {
+    List.fill(n)(Random.nextInt(s))
+  }
+  println("P23: "+lotto(5, 69))
+
+  
 
   /*
   // P
