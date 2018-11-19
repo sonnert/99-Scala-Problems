@@ -7,6 +7,7 @@ object Main extends App {
   // P2
   def penultimate[A](l: List[A]): Any = {
     l match {
+      case Nil => Nil
       case e :: _ :: Nil => e
       case _ :: tail => penultimate(tail)
     }
@@ -62,7 +63,7 @@ object Main extends App {
 
   // P12
   def decode(l: List[Any]): List[Any] = {
-    encode10(l).map(x => List.fill(x._1)(x._2)).flatten
+    encode10(l).flatMap(x => List.fill(x._1)(x._2))
   }
   println("P12: "+decode(l))
 
@@ -76,7 +77,7 @@ object Main extends App {
   def duplicate_n[A](l: List[A], n: Int): List[A] = {
     l.flatMap(x => List.fill(n)(x))
   }
-  println("P15 (n=3): "+duplicate_n(l, 3))
+  println("P15 (3): "+duplicate_n(l, 3))
 
   // P16
   def drop[A](l: List[A]): List[A] = {
@@ -88,33 +89,48 @@ object Main extends App {
   def rotate[A](n: Int, l: List[A]): List[A] = {
     l.drop(l.size-n) ::: l.dropRight(n)
   }
-  println("P19: "+rotate(3, l))
+  println("P19 (3): "+rotate(3, l))
 
   // P20
   def removeAt[A](n: Int, l: List[A]): List[A] = {
     l.dropRight(l.size-n+1) ::: l.drop(n)
   }
-  println("P20: "+removeAt(5, l))
+  println("P20 (5): "+removeAt(5, l))
 
   // P21
   def insertAt[A](newe: A, n: Int, l: List[A]): List[A] = {
     l.take(n-1) ::: newe :: l.drop(n-1)
   }
-  println("P21: "+insertAt('new, 3, l))
+  println("P21 (3): "+insertAt('new, 3, l))
 
   // P23
   def randomSelect[A](n: Int, l: List[A]): List[A] = {
-    ???
+    List.fill(n)(l(Random.nextInt(l.size)))
   }
-  println("P: ")
+  println("P23 (5): "+randomSelect(5, l))
 
   // P24
   def lotto(n: Int, s: Int): List[Int] = {
     List.fill(n)(Random.nextInt(s))
   }
-  println("P23: "+lotto(5, 69))
+  println("P24 (5, 69): "+lotto(5, 69))
 
-  
+  // P25
+  def randomPermute[A](l: List[A]): List[A] = {
+    randomSelect(l.size, l)
+  }
+  println("P25: "+randomPermute(l))
+
+  // P27
+  def group[A](nl: List[Int], l: List[A]): List[List[Any]] = {
+    nl match {
+      case Nil => List(Nil)
+      case first :: rest => l.combinations(first).toList.flatMap(
+        x => group(rest, l.diff(x)).map(x :: _)
+      )
+    }
+  }
+  println("P27: "+group(List(2,1), List('a, 'b, 'c)))
 
   /*
   // P

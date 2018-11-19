@@ -1,1 +1,1 @@
-but a bitch aint one hit me
+Skipped the ones that already have an implementation
