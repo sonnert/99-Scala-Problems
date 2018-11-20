@@ -1,7 +1,12 @@
 import scala.util.Random
+import scala.collection.mutable.MultiMap
+import scala.collection.immutable.ListMap
 
 object Main extends App {
   val l = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+  val l2 = List('a, 'b, 'c, 'd)
+  val l3 = List('x, 'y, 'z)
+  val l4 = List('p, 'q, 'w)
   println("List used: "+l)
 
   // P2
@@ -131,6 +136,20 @@ object Main extends App {
     }
   }
   println("P27: "+group(List(2,1), List('a, 'b, 'c)))
+
+  // P28
+  // a
+  def lsort[A](l: List[List[A]]): List[List[A]] = {
+    l.sortWith(_.length < _.length)
+  }
+  println("P28a: "+lsort(List(l3, l2)))
+  //b
+  def lsortFreq[A](l: List[List[A]]): List[List[A]] = {
+    val lengthed = l.map(e => (e.size, e))
+    val mapped = lengthed.groupBy(e => e._1).mapValues(e => e.map(x => x._2))
+    mapped.toList.map(x => x._2).sortWith(_.size < _.size).flatten
+  }
+  println("P28b: "+lsortFreq(List(l4, l2, l3)))
 
   /*
   // P
